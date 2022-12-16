@@ -1,0 +1,22 @@
+get request 
+
+localhost:5500/api/user/accounts/63789382cf03d9b2522a8345/emails
+
+post
+
+localhost:5500/api/user/accounts/63789382cf03d9b2522a8345/emails/add-email
+
+{
+  "accountName": "email",
+  "userName": "liztruss@gmail.com",
+  "password": "dfx789tuyo"
+  
+}
+
+delete
+
+localhost:5500/api/user/accounts/63789382cf03d9b2522a8345/emails/delete-email
+
+update
+
+localhost:5500/api/user/accounts/63789382cf03d9b2522a8345/emails/update-email
