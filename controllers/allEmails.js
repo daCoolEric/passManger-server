@@ -37,11 +37,11 @@ const decryptPassword = async (req, res) => {
 const addEmail = async (req, res) => {
     req.body.userID = req.params.userID;
     const { userID ,accountName, userName, password } = req.body;
-    const encryptedPassword = encrypt(password);
+    const passcode = encrypt(password).password;
+    const iv = encrypt(password).iv;
 
     try{
-    const newEmail = await AccountModal.create({ userID , accountName, userName, encryptedPassword });
-    console.log(encryptedPassword);
+    const newEmail = await AccountModal.create({ userID , accountName, userName, passcode, iv });
     res.status(201).json(newEmail);
     }
     catch(error){
