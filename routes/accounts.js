@@ -24,8 +24,8 @@ router.get("/:userID/all", getAllAccounts)
 router.get("/:userID/emails", Emails.getEmails);
 router.post("/:userID/emails/decrypt-password", Emails.decryptPassword);
 router.post("/:userID/emails/add-email", Emails.addEmail);
-router.patch("/:userID/emails/update-email", Emails.updateEmail);
-router.delete("/:userID/emails/delete-email", Emails.deleteEmail);
+router.patch("/:userID/emails/:id", Emails.updateEmail);
+router.delete("/:userID/emails/:id", Emails.deleteEmail);
 
 // social media services
 router.get("/:userID/social-media", SocialMedia.getSocialMedia);

@@ -50,9 +50,7 @@ const addEmail = async (req, res) => {
 }
 
 const deleteEmail = async (req, res) => {
-    const { id } = req.body
-    const { userID } = req.params
-  
+    const { userID, id } = req.params;
     const allEmails = await AccountModal.findOneAndDelete({ _id: id, userID })
   
     if(!allEmails) {
