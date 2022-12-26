@@ -61,8 +61,7 @@ const deleteEmail = async (req, res) => {
   }
 
 const updateEmail = async (req, res) => {
-    const { id } = req.body
-    const { userID } = req.params
+    const { userID, id } = req.params
   
     const updatedEmail = await AccountModal.findOneAndUpdate({_id: id, userID }, {
       ...req.body
