@@ -1,4 +1,5 @@
-const { encrypt, decrypt } = require("./EncryptionHandler");
+const { encrypt, decrypt } = require("./Crypto");
+// const { encrypt, decrypt } = require("./EncryptionHandler.js");
 const AccountModal = require( "../models/account.js");
 const UserModal = require("../models/user.js")
 
@@ -21,9 +22,15 @@ const decryptPassword = async (req, res) => {
     if (!validID){
         res.status(404).json({message: "You are not authorised to view this password"});
     }else{
-        const decryptedPassword = decrypt(req.body);
-        console.log(decryptedPassword);
-        res.status(201).json({id, password: decryptedPassword});
+       
+        const decryptedPassword = decrypt(req.body); 
+        // console.log(decryptedPassword);
+        // res.data = decryptedPassword;
+        
+        // res.status(201).json({
+        //   message: "decryptedPassword"
+        // });
+        res.send(decryptedPassword);
     }
         
    } catch (error) {
@@ -37,11 +44,13 @@ const decryptPassword = async (req, res) => {
 const addEmail = async (req, res) => {
     req.body.userID = req.params.userID;
     const { userID ,accountName, userName, password } = req.body;
-    const passcode = encrypt(password).password;
-    const iv = encrypt(password).iv;
-
+    const obj = encrypt(password);
+    const passcode = obj.EncryptedData;
+    const iv = obj.iv;
+    const sk = obj.sk
+    
     try{
-    const newEmail = await AccountModal.create({ userID , accountName, userName, passcode, iv });
+    const newEmail = await AccountModal.create({ userID , accountName, userName, passcode, iv, sk });
     res.status(201).json(newEmail);
     }
     catch(error){
@@ -61,6 +70,7 @@ const deleteEmail = async (req, res) => {
   }
 
 const updateEmail = async (req, res) => {
+    
     const { userID, id } = req.params
   
     const updatedEmail = await AccountModal.findOneAndUpdate({_id: id, userID }, {

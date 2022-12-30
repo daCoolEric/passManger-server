@@ -22,6 +22,10 @@ const accountSchema = new Schema({
   iv: {
     type: String,
     required: true
+  },
+  sk: {
+    type: String,
+    required: true
   }
 }, { timestamps: true })
 
