@@ -19,6 +19,10 @@ const accountSchema = new Schema({
     type: String,
     required: true
   },
+  decryptedPassword: {
+    type: String,
+    required: true
+  },
   iv: {
     type: String,
     required: true

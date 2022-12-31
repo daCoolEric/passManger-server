@@ -47,10 +47,11 @@ const addEmail = async (req, res) => {
     const obj = encrypt(password);
     const passcode = obj.EncryptedData;
     const iv = obj.iv;
-    const sk = obj.sk
+    const sk = obj.sk;
+    const decryptedPassword = "XXXXXXXX";
     
     try{
-    const newEmail = await AccountModal.create({ userID , accountName, userName, passcode, iv, sk });
+    const newEmail = await AccountModal.create({ userID , accountName, userName, passcode, decryptedPassword, iv, sk });
     res.status(201).json(newEmail);
     }
     catch(error){
