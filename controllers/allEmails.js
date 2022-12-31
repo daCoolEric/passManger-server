@@ -2,6 +2,7 @@ const { encrypt, decrypt } = require("./Crypto");
 // const { encrypt, decrypt } = require("./EncryptionHandler.js");
 const AccountModal = require( "../models/account.js");
 const UserModal = require("../models/user.js")
+const { ObjectId } = require('mongodb');
 
 const getEmails = async (req, res) => {
     const { userID } = req.params;
@@ -73,9 +74,16 @@ const deleteEmail = async (req, res) => {
 const updateEmail = async (req, res) => {
     
     const { userID, id } = req.params
+    // var myId = JSON.parse(id);
+    const { accountName, userName, password } = req.body;
+    const obj = encrypt(password);
+    const passcode = obj.EncryptedData;
+    const iv = obj.iv;
+    const sk = obj.sk;
+    const decryptedPassword = "XXXXXXXX";
   
-    const updatedEmail = await AccountModal.findOneAndUpdate({_id: id, userID }, {
-      ...req.body
+    const updatedEmail = await AccountModal.findOneAndUpdate({_id: id , userID }, {
+      userID , accountName, userName, passcode, decryptedPassword, iv, sk
     })
   
     if (!updatedEmail) {
