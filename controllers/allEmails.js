@@ -44,7 +44,7 @@ const decryptPassword = async (req, res) => {
 
 const addEmail = async (req, res) => {
     req.body.userID = req.params.userID;
-    const { userID ,accountName, userName, password } = req.body;
+    const { userID , accountType, accountName, userName, password } = req.body;
     const obj = encrypt(password);
     const passcode = obj.EncryptedData;
     const iv = obj.iv;
@@ -52,7 +52,7 @@ const addEmail = async (req, res) => {
     const decryptedPassword = "XXXXXXXX";
     
     try{
-    const newEmail = await AccountModal.create({ userID , accountName, userName, passcode, decryptedPassword, iv, sk });
+    const newEmail = await AccountModal.create({ userID , accountType, accountName, userName, passcode, decryptedPassword, iv, sk });
     res.status(201).json(newEmail);
     }
     catch(error){

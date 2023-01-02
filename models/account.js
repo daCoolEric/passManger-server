@@ -7,6 +7,10 @@ const accountSchema = new Schema({
     type: String,
     required: true
     },
+  accountType: {
+      type: String,
+      required: true
+      },
   accountName: {
     type: String,
     required: true
